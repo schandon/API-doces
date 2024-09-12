@@ -1,0 +1,7 @@
+Flask==2.3.2
+SQLAlchemy==2.0.16
+python-dotenv==1.0.0
+flask_sqlalchemy
+flask_migrate 
+Flask-Cors
+psycopg2 

@@ -1,0 +1,12 @@
+from app import db
+from datetime import datetime
+
+class PedidoClienteColaborador(db.Model):
+    __tablename__ = 'PedidoClienteColaborador'
+
+    id = db.Column(db.Integer, primary_key=True,unique=True, increment=True)   
+    id_cliente = db.Column(db.integer, db.ForeignKey('Clientes.id'), nullable=False)
+    id_colaborador = db.Column(db.integer, db.ForeignKey('Colaboradores.id'), nullable=False)
+    id_pedido = db.Column(db.integer, db.ForeignKey('Pedidos.id'), nullable=False)
+    id_produto = db.Column(db.integer, db.ForeignKey('Produtos.id'), nullable=False)
+    ultima_atualizacao = db.Column(db.datetime, default=datetime.now())
