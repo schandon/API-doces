@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from config import Config
 from models import db
 from models.Cliente import Cliente
@@ -18,7 +18,7 @@ with app.app_context():
 # Rota de exemplo
 @app.route('/')
 def index():
-    return "Tabelas criadas com sucesso!"
+    return jsonify({"message": "API Doces rodando! 🚀", "status": "Success"});
 
 if __name__ == "__main__":
     app.run(debug=True)
