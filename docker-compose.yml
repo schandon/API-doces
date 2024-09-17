@@ -1,0 +1,31 @@
+version: '3.8'  # Define a versão do Docker Compose
+
+services:
+  web:
+    build: .
+    container_name: flask-app  # Nome do container para a aplicação Flask
+    ports:
+      - "5000:5000"  # Expõe a porta 5000 para acessar o Flask
+    environment:
+      - FLASK_ENV=development
+      - SQLALCHEMY_DATABASE_URI=postgresql://POSTGRES_USER:POSTGRES_PASSWORD@localhost:5432/POSTGRES_DB  # Configuração para conectar com o PostgreSQL
+    depends_on:
+      - db  # Flask só rodará depois que o serviço db (PostgreSQL) estiver ativo
+    volumes:
+      - .:/app  # Sincroniza os arquivos locais com o container
+
+  db:
+    image: postgres:13
+    container_name: postgres-doces  # Nome do container PostgreSQL
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}  # Nome do banco de dados
+      - POSTGRES_USER=${POSTGRES_USER}  # Usuário do banco
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}  # Senha do usuário
+    ports:
+      - "5432:5432"  # Porta para acessar o PostgreSQL externamente
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  # Persistência de dados
+
+volumes:
+  postgres-data:
+    driver: local  # Volume para armazenar os dados do PostgreSQL

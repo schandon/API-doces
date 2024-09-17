@@ -16,3 +16,6 @@ class Cliente(db.Model):
     data_nascimento = db.Column(db.DateTime)
     ultima_atualizado = db.Column(db.DateTime, default=datetime.now)
     PedidoClienteColaborador = db.relationship('PedidoClienteColaborador', backref='author', lazy=True)
+    
+    def __repr__(self):
+        return f'<Cliente {self.nome}>'
