@@ -1,5 +1,6 @@
-from app import db
+from . import db
 from datetime import datetime
+
 
 class Cliente(db.Model):
     __tablename__ = 'Clientes'

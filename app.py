@@ -1,26 +1,24 @@
-from flask import Flask, jsonify;
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from dotenv import load_dotenv
-from sqlalchemy import create_engine, MetaData
-import os
-
-load_dotenv()
+from flask import Flask
+from config import Config
+from models import db
+from models.Cliente import Cliente
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
-engine = create_engine(os.getenv('DATABASE_URL'))
-metadata = MetaData(schema='public')
+# Carregar as configurações
+app.config.from_object(Config)
 
+# Inicializar a extensão SQLAlchemy
+db.init_app(app)
 
+# Garantir que as tabelas sejam criadas ao iniciar a aplicação
+with app.app_context():
+    db.create_all()
+
+# Rota de exemplo
 @app.route('/')
-def home():
-    return jsonify({"message": "API Doces rodando! 🚀", "status": "Success"});
+def index():
+    return "Tabelas criadas com sucesso!"
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+if __name__ == "__main__":
     app.run(debug=True)
