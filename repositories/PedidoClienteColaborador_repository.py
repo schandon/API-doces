@@ -1,4 +1,4 @@
-from models.PedidoClienteColadorador import PedidoClienteColadorador
+from models.PedidoClienteColaborador import PedidoClienteColadorador
 from app import db
 
 def create_pedidoClienteColadorador(data):

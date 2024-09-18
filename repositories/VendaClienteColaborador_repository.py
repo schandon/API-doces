@@ -1,4 +1,4 @@
-from models.VendaClienteColadorador import VendaClienteColadorador
+from models.VendaClienteColaborador import VendaClienteColadorador
 from app import db
 
 def create_vendaClienteColadorador(data):

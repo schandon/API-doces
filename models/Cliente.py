@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class Cliente(db.Model):
-    __tablename__ = 'Clientes'
+    __tablename__ = 'clientes'
 
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
@@ -13,10 +13,9 @@ class Cliente(db.Model):
     endereco = db.Column(db.String(100), nullable=False)
     numero = db.Column(db.Integer)
     sexo = db.Column(db.String(1))
-    estado_civil = db.Column(db.String(50), default="Solteiro")
-    data_nascimento = db.Column(db.DateTime)
-    ultima_atualizado = db.Column(db.DateTime, default=datetime.now)
-    PedidoClienteColaborador = db.relationship('PedidoClienteColaborador', backref='author', lazy=True)
+    estadoCivil = db.Column(db.String(50), default="Solteiro")
+    dataNascimento = db.Column(db.DateTime)
+    ultimaAtualizado = db.Column(db.DateTime, default=datetime.now)
     
     def __repr__(self):
         return f'<Cliente {self.nome}>'

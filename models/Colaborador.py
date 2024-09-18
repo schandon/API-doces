@@ -2,12 +2,14 @@ from . import db
 from datetime import datetime
 
 class Colaborador(db.Model):
-    __tablename__ = 'Colaboradores'
+    __tablename__ = 'colaboradores'
 
-    id = db.Column(db.Integer, primary_key=True,unique=True, increment=True)
+    id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String(100), nullable=False)
     user_name = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    ultima_atualizado = db.Column(db.datetime, default=datetime.now())
+    ultima_atualizacao = db.Column(db.DateTime, default=datetime.now)
+
     
-    PedidoClienteColaborador = db.relationship('PedidoClienteColaborador', backref='author', lazy=True)
+    def __repr__(self):
+        return f'<Colaborador {self.name}>'
