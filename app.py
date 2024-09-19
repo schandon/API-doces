@@ -1,27 +1,30 @@
 from flask import Flask, jsonify
 from flask_migrate import Migrate
 from config import Config
-from models import db
-from models.Cliente import Cliente
-from models.Colaborador import Colaborador
-from models.Pedido import Pedido
-from models.Produto import Produto
 
-
+# Crie o Flask app primeiro
 app = Flask(__name__)
-
 app.config.from_object(Config)
-db.init_app(app)
-migrate = Migrate(app,db)
 
-# Garantir que as tabelas sejam criadas ao iniciar a aplicação
-with app.app_context():
-    db.create_all()
+migrate = Migrate()
 
-# Rota de exemplo
+def create_app():
+    from models import db  # Agora pode importar db sem erro circular
+    from routes.cliente_routes import cliente_bp
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    app.register_blueprint(cliente_bp)
+
+    with app.app_context():
+        db.create_all()
+
+    return app
+
 @app.route('/')
 def index():
-    return jsonify({"message": "API Doces rodando! 🚀", "status": "Success"});
+    return jsonify({"message": "API Doces rodando! 🚀", "status": "Success"})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    create_app().run(debug=True)

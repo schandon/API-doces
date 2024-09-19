@@ -1,6 +1,8 @@
-from repositories.cliente_repository import create_cliente, get_all_cliente
+from repositories.cliente_repository import ClienteRepository
+from models.Cliente import Cliente
+from pydantic import ValidationError
 
-class ClienteRepository:
+class ClienteService:
     def valida_cliente(dados):
         if not dados.get("nome"):
             raise ValueError("O Campo 'nome' é Obrigatório")
@@ -11,15 +13,14 @@ class ClienteRepository:
         if not dados.get("telefone"):
             raise ValueError("O Campo 'telefone' é Obrigatório")
         
-    def add_cliente(self,cliente_data):
+    @staticmethod
+    def create_cliente(data):
         try:
-            self.valida_cliente(cliente_data)
-            print("Cliente criados com Sucesso!")
-            return create_cliente(cliente_data)
-        except ValueError as e:
-            print(f"Erro ao Criar Cliente: {e}")
-        except Exception as e:
-            print(f"Erro Inesperado: {e}")
+            # Validate client data (you could use Pydantic here for validation)
+            cliente = Cliente(**data)
+            return ClienteRepository.create_cliente(cliente)
+        except ValidationError as e:
+            raise ValueError(f"Invalid client data: {e}")
 
     def fetch_all_cliente():
-        return get_all_cliente()
+        return ClienteRepository.get_all_cliente()

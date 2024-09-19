@@ -5,3 +5,5 @@ flask_sqlalchemy
 flask_migrate 
 Flask-Cors
 psycopg2 
+pydantic
+
