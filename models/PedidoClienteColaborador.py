@@ -9,7 +9,7 @@ class PedidoClienteColaborador(db.Model):
     id_colaborador = db.Column(db.Integer, db.ForeignKey('Colaboradores.id'), nullable=False)
     id_pedido = db.Column(db.Integer, db.ForeignKey('Pedidos.id'), nullable=False)
     id_produto = db.Column(db.Integer, db.ForeignKey('Produtos.id'), nullable=False)
-    ultima_atualizacao = db.Column(db.DateTime, default=datetime.now)
+    ultima_atualizacao = db.Column(db.DateTime, default=datetime.now())
 
 def __repr__(self):
     return f'<PedidoClienteColaborador {self.nome}>'

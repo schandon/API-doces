@@ -8,7 +8,7 @@ class Colaborador(db.Model):
     name = db.Column(db.String(100), nullable=False)
     user_name = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    ultima_atualizacao = db.Column(db.DateTime, default=datetime.now)
+    ultima_atualizacao = db.Column(db.DateTime, default=datetime.now())
 
     
     def __repr__(self):

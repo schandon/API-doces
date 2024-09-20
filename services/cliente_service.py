@@ -3,6 +3,7 @@ from models.Cliente import Cliente
 from pydantic import ValidationError
 
 class ClienteService:
+    @staticmethod
     def valida_cliente(dados):
         if not dados.get("nome"):
             raise ValueError("O Campo 'nome' é Obrigatório")
@@ -21,6 +22,6 @@ class ClienteService:
             return ClienteRepository.create_cliente(cliente)
         except ValidationError as e:
             raise ValueError(f"Invalid client data: {e}")
-
+    @staticmethod
     def fetch_all_cliente():
         return ClienteRepository.get_all_cliente()

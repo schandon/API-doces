@@ -11,7 +11,7 @@ class Venda(db.Model):
     id_produto = db.Column(db.Integer, db.ForeignKey('Produtos.id'),nullable=False)
     valor = db.Column(db.Float)
     data = db.Column(db.DateTime, nullable=False)
-    ultima_atualizado = db.Column(db.DateTime, default=datetime.now)
+    ultima_atualizado = db.Column(db.DateTime, default=datetime.now())
     
     PedidoClienteColaborador = db.relationship('PedidoClienteColaborador', backref='author', lazy=True)
     PedidoProduto = db.relationship('PedidoProdutos', backref='author', lazy=True)

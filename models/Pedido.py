@@ -9,7 +9,7 @@ class Pedido(db.Model):
     quantidade_itens = db.Column(db.Integer)
     valor = db.Column(db.Float)
     data = db.Column(db.DateTime, nullable=False)
-    ultima_atualizado = db.Column(db.DateTime, default=datetime.now)
+    ultima_atualizado = db.Column(db.DateTime, default=datetime.now())
 
     
 def __repr__(self):

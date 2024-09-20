@@ -12,3 +12,7 @@ class ClienteRepository:
     @staticmethod
     def get_all():
         return Cliente.query.all()
+    
+    @staticmethod
+    def get_by_id(user_id):
+        return Cliente.query.get(user_id)
