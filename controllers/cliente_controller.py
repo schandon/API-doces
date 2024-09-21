@@ -1,15 +1,15 @@
 from flask import Blueprint, jsonify, request
 from services.cliente_service import ClienteService
 
-Cliente_bp = Blueprint('Clientes', __name__)
+cliente_bp = Blueprint('Clientes', __name__)
 
-@Cliente_bp.route('/Clientes', methods=['GET'])
+@cliente_bp.route('/Clientes', methods=['GET'])
 def get_Clientes():
     Clientes = ClienteService.list_Clientes()
     return jsonify([{'id': Cliente.id, 'name': Cliente.name, 'email': Cliente.email, 'cpf': Cliente.cpf,'cep' : Cliente.cep,
                      'endereco' :Cliente.endereco   , 'numero' : Cliente.numero, 'sexo' :  Cliente.sexo,'dataNascimento' : Cliente.dataNascimento} for Cliente in Clientes])
 
-@Cliente_bp.route('/Clientes/<int:Cliente_id>', methods=['GET'])
+@cliente_bp.route('/Clientes/<int:Cliente_id>', methods=['GET'])
 def get_Cliente(Cliente_id):
     Cliente = ClienteService.find_Cliente_by_id(Cliente_id)
     if not Cliente:
@@ -17,7 +17,7 @@ def get_Cliente(Cliente_id):
     return jsonify({'id': Cliente.id, 'name': Cliente.name, 'email': Cliente.email, 'cpf': Cliente.cpf,'cep' : Cliente.cep,
                     'endereco' :Cliente.endereco   , 'numero' : Cliente.numero, 'sexo' :  Cliente.sexo,'dataNascimento' : Cliente.dataNascimento})
 
-@Cliente_bp.route('/Clientes', methods=['POST'])
+@cliente_bp.route('/Clientes', methods=['POST'])
 def create_Cliente():
     data = request.get_json()
     name = data.get('name')

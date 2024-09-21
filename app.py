@@ -10,7 +10,7 @@ migrate = Migrate()
 
 def create_app():
     from models import db  # Agora pode importar db sem erro circular
-    from routes.cliente_routes import cliente_bp
+    from controllers.cliente_controller import cliente_bp
 
     db.init_app(app)
     migrate.init_app(app, db)

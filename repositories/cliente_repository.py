@@ -1,5 +1,5 @@
 from models.Cliente import Cliente
-from app import db
+from . import db
 
 class ClienteRepository:
     @staticmethod
