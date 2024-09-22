@@ -15,13 +15,18 @@ class ClienteService:
             raise ValueError("O Campo 'telefone' é Obrigatório")
         
     @staticmethod
-    def create_cliente(data):
+    def add_Cliente(data):
         try:
-            # Validate client data (you could use Pydantic here for validation)
             cliente = Cliente(**data)
             return ClienteRepository.create_cliente(cliente)
         except ValidationError as e:
             raise ValueError(f"Invalid client data: {e}")
+   
+   
     @staticmethod
-    def fetch_all_cliente():
-        return ClienteRepository.get_all_cliente()
+    def list_Clientes():
+        return ClienteRepository.get_all()
+    
+    @staticmethod
+    def find_Cliente_by_id(Cliente_id):
+        return ClienteRepository.get_by_id(Cliente_id)

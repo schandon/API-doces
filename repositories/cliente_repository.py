@@ -3,8 +3,7 @@ from . import db
 
 class ClienteRepository:
     @staticmethod
-    def create(cliente_data):
-        new_cliente = Cliente(**cliente_data)
+    def create_cliente(new_cliente):
         db.session.add(new_cliente)
         db.session.commit()
         return new_cliente

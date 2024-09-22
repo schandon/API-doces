@@ -17,5 +17,8 @@ class Cliente(db.Model):
     dataNascimento = db.Column(db.DateTime)
     ultimaAtualizado = db.Column(db.DateTime, default=datetime.now())
     
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
     def __repr__(self):
         return f'<Cliente {self.nome}>'
