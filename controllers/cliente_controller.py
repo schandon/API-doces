@@ -17,23 +17,35 @@ def cliente_to_json(Cliente):
         'dataNascimento': Cliente.dataNascimento
     }
 
-@cliente_bp.route('/Clientes', methods=['GET'])
-def get_Clientes():
-    Clientes = ClienteService.list_Clientes()
-    return jsonify([cliente_to_json(Cliente) for Cliente in Clientes])
+class ClienteController:
+    @staticmethod
+    def get_all_cliente():
+        clientes = ClienteService.get_all_cliente()
+        return jsonify([cliente.as_dict() for cliente in clientes]), 200
+    
+    @staticmethod
+    def get_cliente(cliente_id):
+        cliente = ClienteService.find_Cliente_by_id(cliente_id)
+        if cliente:
+            return jsonify(cliente.as_dict()), 200
+        return jsonify({'Message':"Cliente não encontrado"}), 404 
 
-@cliente_bp.route('/Clientes/<int:Cliente_id>', methods=['GET'])
-def get_Cliente(Cliente_id):
-    Cliente = ClienteService.find_Cliente_by_id(Cliente_id)
-    if not Cliente:
-        return jsonify({'message': 'Cliente not found'}), 404
-    return jsonify(cliente_to_json(Cliente))
+    @staticmethod
+    def create_cliente():
+        data = request.get_json()
+        cliente = ClienteService.create_cliente(data)
+        return jsonify(cliente.as_dict()), 201
+    @staticmethod
+    def update_cliente(cliente_id):
+        data = request.get_json()
+        cliente = ClienteService.update_cliente(cliente_id, data)
+        if cliente:
+            return jsonify(cliente.as_dict()), 200
+        return jsonify({'message': 'Product not found'}), 404
 
-@cliente_bp.route('/Clientes', methods=['POST'])
-def create_Cliente():
-    data = request.get_json()
-    try:
-        new_Cliente = ClienteService.add_Cliente(data)
-        return jsonify(new_Cliente), 201
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
+    @staticmethod
+    def delete_cliente(cliente_id):
+        cliente = ClienteService.delete_cliente(cliente_id)
+        if cliente:
+            return jsonify({'message': 'Product deleted'}), 200
+        return jsonify({'message': 'Product not found'}), 404

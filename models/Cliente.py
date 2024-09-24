@@ -15,7 +15,7 @@ class Cliente(db.Model):
     sexo = db.Column(db.String(1))
     estadoCivil = db.Column(db.String(50), default="Solteiro")
     dataNascimento = db.Column(db.DateTime)
-    ultimaAtualizado = db.Column(db.DateTime, default=datetime.now())
+    ultimaAtualizado = db.Column(db.DateTime, default=datetime.now)
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

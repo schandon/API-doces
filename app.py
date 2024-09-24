@@ -1,29 +1,22 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_migrate import Migrate
-from config import Config
-from models import db
+from config import Config, db
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
+app.config.from_object(Config)
+db.init_app(app)
+migrate = Migrate(app, db)
 
-def create_app():    
-    app.config.from_object(Config)
+from routes.cliente_routes import cliente_bp
 
-    migrate = Migrate()
-    from controllers.cliente_controller import cliente_bp
+app.register_blueprint(cliente_bp)
 
-    db.init_app(app)
-    migrate.init_app(app, db)
+with app.app_context():
+    db.create_all()
 
-    app.register_blueprint(cliente_bp)
-
-    with app.app_context():
-        db.create_all()
-
-    return app
-
-@app.route('/')
-def index():
-    return jsonify({"message": "API Doces rodando! 🚀", "status": "Success"})
 
 if __name__ == "__main__":
-    create_app().run(debug=True)
+    app.run(debug=True)
